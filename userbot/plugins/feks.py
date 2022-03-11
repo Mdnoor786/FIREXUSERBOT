@@ -12,10 +12,7 @@ async def _(event):
     if event.fwd_from:
         return
     await event.delete()
-    input_str = event.pattern_match.group(1)
-    action = "typing"
-    if input_str:
-        action = input_str
+    action = input_str if (input_str := event.pattern_match.group(1)) else "typing"
     async with borg.action(event.chat_id, action):
         await asyncio.sleep(600)  # type for 10 seconds
 
@@ -25,10 +22,10 @@ async def _(event):
     if event.fwd_from:
         return
     await event.delete()
-    input_str = event.pattern_match.group(1)
-    action = "contact"
-    if input_str:
+    if input_str := event.pattern_match.group(1):
         action = input_str
+    else:
+        action = "contact"
     async with borg.action(event.chat_id, action):
         await asyncio.sleep(600)  # type for 10 seconds
 
@@ -38,10 +35,7 @@ async def _(event):
     if event.fwd_from:
         return
     await event.delete()
-    input_str = event.pattern_match.group(1)
-    action = "game"
-    if input_str:
-        action = input_str
+    action = input_str if (input_str := event.pattern_match.group(1)) else "game"
     async with borg.action(event.chat_id, action):
         await asyncio.sleep(600)  # type for 10 seconds
 
@@ -51,10 +45,10 @@ async def _(event):
     if event.fwd_from:
         return
     await event.delete()
-    input_str = event.pattern_match.group(1)
-    action = "location"
-    if input_str:
+    if input_str := event.pattern_match.group(1):
         action = input_str
+    else:
+        action = "location"
     async with borg.action(event.chat_id, action):
         await asyncio.sleep(600)  # type for 10 seconds
 
@@ -64,10 +58,10 @@ async def _(event):
     if event.fwd_from:
         return
     await event.delete()
-    input_str = event.pattern_match.group(1)
-    action = "recording"
-    if input_str:
+    if input_str := event.pattern_match.group(1):
         action = input_str
+    else:
+        action = "recording"
     async with borg.action(event.chat_id, action):
         await asyncio.sleep(600)  # type for 10 seconds
 
@@ -77,10 +71,10 @@ async def _(event):
     if event.fwd_from:
         return
     await event.delete()
-    input_str = event.pattern_match.group(1)
-    action = "uploading"
-    if input_str:
+    if input_str := event.pattern_match.group(1):
         action = input_str
+    else:
+        action = "uploading"
     async with borg.action(event.chat_id, action):
         await asyncio.sleep(600)  # type for 10 seconds
 
@@ -92,7 +86,6 @@ async def gbun(event):
     gbunVar = event.text
     gbunVar = gbunVar[6:]
     mentions = "`Warning!! User 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By Admin...\n`"
-    no_reason = "__Reason: Madarchod Saala"
     await event.edit("** Nikal Lawde❗️⚜️☠️**")
     asyncio.sleep(3.5)
     chat = await event.get_input_chat()
@@ -118,15 +111,16 @@ async def gbun(event):
                 "**Person's Name: ** __{}__\n"
                 "**ID : ** `{}`\n"
             ).format(firstname, idd, firstname, idd)
-            if usname == None:
+            if usname is None:
                 jnl += "**Victim Nigga's username: ** `Doesn't own a username!`\n"
             elif usname != "None":
                 jnl += "**Victim Nigga's username** : @{}\n".format(usname)
             if len(gbunVar) > 0:
-                gbunm = "`{}`".format(gbunVar)
-                gbunr = "**Reason: **" + gbunm
+                gbunm = f"`{gbunVar}`"
+                gbunr = f"**Reason: **{gbunm}"
                 jnl += gbunr
             else:
+                no_reason = "__Reason: Madarchod Saala"
                 jnl += no_reason
             await reply_message.reply(jnl)
     else:
@@ -332,7 +326,6 @@ async def gbun(event):
     gbunVar = event.text
     gbunVar = gbunVar[6:]
     mentions = "**Warning!! User Gmuted By Admin...\n**"
-    no_reason = "__Reason: ab sale Globally mute hi rah"
     await event.edit("** Gmutting...**")
     asyncio.sleep(2)
     chat = await event.get_input_chat()
@@ -358,15 +351,16 @@ async def gbun(event):
                 "**Name: ** __{}__\n"
                 "**ID : ** `{}`\n"
             ).format(firstname, idd, firstname, idd)
-            if usname == None:
+            if usname is None:
                 jnl += "**Victim Nigga's username: ** `Doesn't have a username!`\n"
             elif usname != "None":
                 jnl += "**Victim Nigga's username** : @{}\n".format(usname)
             if len(gbunVar) > 0:
-                gbunm = "`{}`".format(gbunVar)
-                gbunr = "**Reason: **" + gbunm
+                gbunm = f"`{gbunVar}`"
+                gbunr = f"**Reason: **{gbunm}"
                 jnl += gbunr
             else:
+                no_reason = "__Reason: ab sale Globally mute hi rah"
                 jnl += no_reason
             await reply_message.reply(jnl)
     else:
@@ -382,7 +376,6 @@ async def gbun(event):
     gbunVar = event.text
     gbunVar = gbunVar[6:]
     mentions = "**Warning!! User Unmuted By Admin...\n**"
-    no_reason = "__Reason: Purani bat Bhool ja wo pakar ke jhool jha"
     await event.edit("**Ungmutting...**")
     asyncio.sleep(2)
     chat = await event.get_input_chat()
@@ -408,15 +401,16 @@ async def gbun(event):
                 "**Name: ** __{}__\n"
                 "**ID : ** `{}`\n"
             ).format(firstname, idd, firstname, idd)
-            if usname == None:
+            if usname is None:
                 jnl += "**Victim Nigga's username: ** `Doesn't have a username!`\n"
             elif usname != "None":
                 jnl += "**Victim Nigga's username** : @{}\n".format(usname)
             if len(gbunVar) > 0:
-                gbunm = "`{}`".format(gbunVar)
-                gbunr = "**Reason: **" + gbunm
+                gbunm = f"`{gbunVar}`"
+                gbunr = f"**Reason: **{gbunm}"
                 jnl += gbunr
             else:
+                no_reason = "__Reason: Purani bat Bhool ja wo pakar ke jhool jha"
                 jnl += no_reason
             await reply_message.reply(jnl)
     else:

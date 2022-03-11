@@ -23,11 +23,9 @@ async def _(event):
     if event.fwd_from:
         return
     input_str = event.pattern_match.group(1)
-    sample_url = "https://da.gd/s?url=https://lmgtfy.com/?q={}%26iie=1".format(
-        input_str.replace(" ", "+")
-    )
-    response_api = requests.get(sample_url).text
-    if response_api:
+    sample_url = f'https://da.gd/s?url=https://lmgtfy.com/?q={input_str.replace(" ", "+")}%26iie=1'
+
+    if response_api := requests.get(sample_url).text:
         await event.edit(
             "[{}]({})\n`Thank me Later 🙃` ".format(input_str, response_api.rstrip())
         )
@@ -74,9 +72,10 @@ async def _(event):
     ms = (end - start).seconds
     await edit_or_reply(
         event,
-        "Searched Google for {} in {} seconds.".format(input_str, ms),
+        f"Searched Google for {input_str} in {ms} seconds.",
         link_preview=False,
     )
+
     await asyncio.sleep(5)
     await event.delete()
 
@@ -87,17 +86,17 @@ async def _(event):
     if event.fwd_from:
         return
     start = datetime.now()
-    BASE_URL = "http://www.google.com"
     OUTPUT_STR = "Reply to an image to do Google Reverse Search"
     if event.reply_to_msg_id:
         await edit_or_reply(event, "Pre Processing Media")
         previous_message = await event.get_reply_message()
         previous_message_text = previous_message.message
+        BASE_URL = "http://www.google.com"
         if previous_message.media:
             downloaded_file_name = await borg.download_media(
                 previous_message, Config.TMP_DOWNLOAD_DIRECTORY
             )
-            SEARCH_URL = "{}/searchbyimage/upload".format(BASE_URL)
+            SEARCH_URL = f"{BASE_URL}/searchbyimage/upload"
             multipart = {
                 "encoded_image": (
                     downloaded_file_name,

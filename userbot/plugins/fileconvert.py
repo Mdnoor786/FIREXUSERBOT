@@ -28,9 +28,7 @@ if not os.path.isdir("./temp"):
 async def _(eviral):
     if eviral.fwd_from:
         return
-    reply_to_id = eviral.message.id
-    if eviral.reply_to_msg_id:
-        reply_to_id = eviral.reply_to_msg_id
+    reply_to_id = eviral.reply_to_msg_id or eviral.message.id
     event = await edit_or_reply(eviral, "Converting.....")
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
@@ -63,9 +61,7 @@ async def _(eviral):
 async def _(eviral):
     if eviral.fwd_from:
         return
-    reply_to_id = eviral.message.id
-    if eviral.reply_to_msg_id:
-        reply_to_id = eviral.reply_to_msg_id
+    reply_to_id = eviral.reply_to_msg_id or eviral.message.id
     event = await edit_or_reply(eviral, "Converting.....")
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
@@ -335,19 +331,18 @@ async def _(event):
     except Exception as e:  # pylint:disable=C0103,W0703
         await event.edit(str(e))
     else:
-        await event.edit(
-            "Downloaded to `{}` in 4 seconds.".format(downloaded_file_name)
-        )
+        await event.edit(f"Downloaded to `{downloaded_file_name}` in 4 seconds.")
         new_required_file_name = ""
         new_required_file_caption = ""
         command_to_run = []
         voice_note = False
         supports_streaming = False
         if input_str == "voice":
-            new_required_file_caption = "voice_" + str(round(time.time())) + ".opus"
+            new_required_file_caption = f"voice_{str(round(time.time()))}.opus"
             new_required_file_name = (
-                Config.TMP_DOWNLOAD_DIRECTORY + "/" + new_required_file_caption
+                f'{Config.TMP_DOWNLOAD_DIRECTORY}/{new_required_file_caption}'
             )
+
             command_to_run = [
                 "ffmpeg",
                 "-i",
@@ -365,10 +360,11 @@ async def _(event):
             voice_note = True
             supports_streaming = True
         elif input_str == "mp3":
-            new_required_file_caption = "mp3_" + str(round(time.time())) + ".mp3"
+            new_required_file_caption = f"mp3_{str(round(time.time()))}.mp3"
             new_required_file_name = (
-                Config.TMP_DOWNLOAD_DIRECTORY + "/" + new_required_file_caption
+                f'{Config.TMP_DOWNLOAD_DIRECTORY}/{new_required_file_caption}'
             )
+
             command_to_run = [
                 "ffmpeg",
                 "-i",
@@ -416,23 +412,22 @@ async def _(event):
 @bot.on(admin_cmd(pattern=r"open", outgoing=True))
 async def _(event):
     b = await event.client.download_media(await event.get_reply_message())
-    a = open(b, "r")
-    c = a.read()
-    a.close()
+    with open(b, "r") as a:
+        c = a.read()
     a = await event.reply("Reading file...")
     if len(c) >= 4096:
         await event.edit(
-            f" Output file is too large Not supported By Telegram",
+            " Output file is too large Not supported By Telegram",
             link_preview=False,
         )
-        await a.delete()
+
     else:
         await event.client.send_message(event.chat_id, f"{c}")
-        await a.delete()
+    await a.delete()
     os.remove(b)
 
 
-thumb_image_path = Config.TMP_DOWNLOAD_DIRECTORY + "thumb_image.jpg"
+thumb_image_path = f'{Config.TMP_DOWNLOAD_DIRECTORY}thumb_image.jpg'
 
 
 @bot.on(admin_cmd(pattern="itos"))
@@ -446,11 +441,11 @@ async def teamcobra(hehe):
         hehe.reply_to_msg_id
     cobra = await edit_or_reply(hehe, "Converting.....")
 
-    input_str = "dc.webp"
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if cobra.reply_to_msg_id:
         datetime.datetime.now()
+        input_str = "dc.webp"
         file_name = input_str
         reply_message = await cobra.get_reply_message()
 
@@ -526,7 +521,7 @@ async def get(event):
 
 @bot.on(admin_cmd(pattern=r"itog (?P<shortname>\w+)", outgoing=True))
 @bot.on(sudo_cmd(pattern=r"itog (?P<shortname>\w+)", allow_sudo=True))
-async def pic_gifcmd(event):  # sourcery no-metrics
+async def pic_gifcmd(event):    # sourcery no-metrics
     "To convert replied image or sticker to gif"
     reply = await event.get_reply_message()
     mediatype = media_type(reply)
@@ -538,7 +533,7 @@ async def pic_gifcmd(event):  # sourcery no-metrics
             "__Reply to photo or sticker to make it gif. Animated sticker is not supported__",
         )
     args = event.pattern_match.group(1)
-    args = "i" if not args else args.replace("-", "")
+    args = args.replace("-", "") if args else "i"
     catevent = await edit_or_reply(event, "__🎞 Making Gif from the relied media...__")
     imag = await media_to_pic(event, reply, noedits=True)
     if imag[1] is None:

@@ -27,9 +27,10 @@ async def _(event):
     else:
         await eod(
             event,
-            f"`trt LanguageCode - message`  or  `trt LanguageCode as reply to a message.`\n\nTry `trc` to get all language codes",
+            "`trt LanguageCode - message`  or  `trt LanguageCode as reply to a message.`\\n\\nTry `trc` to get all language codes",
             7,
         )
+
         return
     text = emoji.demojize(text.strip())
     lan = lan.strip()
@@ -77,7 +78,7 @@ async def _(event):
     lan = lan.strip()
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
-    required_file_name = Config.TMP_DOWNLOAD_DIRECTORY + "voice.ogg"
+    required_file_name = f'{Config.TMP_DOWNLOAD_DIRECTORY}voice.ogg'
     try:
         tts = gTTS(text, lang=lan)
         tts.save(required_file_name)
@@ -93,8 +94,9 @@ async def _(event):
             "100k",
             "-vbr",
             "on",
-            required_file_name + ".opus",
+            f'{required_file_name}.opus',
         ]
+
         try:
             t_response = subprocess.check_output(
                 command_to_execute, stderr=subprocess.STDOUT
@@ -104,7 +106,7 @@ async def _(event):
             # continue sending required_file_name
         else:
             os.remove(required_file_name)
-            required_file_name = required_file_name + ".opus"
+            required_file_name = f'{required_file_name}.opus'
         end = datetime.datetime.now()
         ms = (end - start).seconds
         await borg.send_file(
@@ -115,7 +117,7 @@ async def _(event):
             voice_note=True,
         )
         os.remove(required_file_name)
-        await eor(event, "Processed {} ({}) in {} seconds!".format(text[0:97], lan, ms))
+        await eor(event, f"Processed {text[:97]} ({lan}) in {ms} seconds!")
         await asyncio.sleep(5)
         await event.delete()
     except Exception as e:
@@ -130,9 +132,11 @@ CmdHelp("ggℓ αѕѕτ").add_command(
     "trs",
     "<lang code> <reply to msg>",
     "Translates the replied message to desired language code. Type '.trc' to get all the language codes",
-    f"trt en - hello | .trt en <reply to msg>",
+    "trt en - hello | .trt en <reply to msg>",
 ).add_command(
-    "trp", None, "Gets all the possible language codes for google translate module"
+    "trp",
+    None,
+    "Gets all the possible language codes for google translate module",
 ).add_info(
     "Google Assistant"
 ).add_warning(

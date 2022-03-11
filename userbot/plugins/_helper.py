@@ -11,11 +11,7 @@ from userbot.Config import Config
 from . import *
 
 mybot = Config.BOT_USERNAME
-if mybot.startswith("@"):
-    botname = mybot
-else:
-    botname = f"@{mybot}"
-
+botname = mybot if mybot.startswith("@") else f"@{mybot}"
 msg = f"""
 **⚜  FIRE_X ⚜**
 
@@ -44,8 +40,8 @@ async def _(event):
     if event.fwd_from:
         return
     firebotusername = botname
-    chat = "@Botfather"
     if firebotusername is not None:
+        chat = "@Botfather"
         try:
             results = await event.client.inline_query(firebotusername, "FIREX_help")
             await results[0].click(
@@ -100,11 +96,11 @@ async def yardim(event):
         if input_str in CMD_LIST:
             string = "Commands found in {}:\n".format(input_str)
             for i in CMD_LIST[input_str]:
-                string += "  " + i
+                string += f"  {i}"
                 string += "\n"
             await event.edit(string)
         else:
-            await event.edit(input_str + " is not a valid plugin!")
+            await event.edit(f'{input_str} is not a valid plugin!')
 
 
 @bot.on(admin_cmd(pattern="plinfo(?: |$)(.*)", outgoing=True))
@@ -112,8 +108,7 @@ async def yardim(event):
 async def FIREXt(event):
     if event.fwd_from:
         return
-    args = event.pattern_match.group(1).lower()
-    if args:
+    if args := event.pattern_match.group(1).lower():
         if args in CMD_HELP:
             await eor(event, str(CMD_HELP[args]))
         else:
@@ -126,13 +121,10 @@ async def FIREXt(event):
         ]
 
         for i in sayfa:
-            string += f"`♦️`"
+            string += "`♦️`"
             for sira, a in enumerate(i):
-                string += "`" + str(a)
-                if sira == i.index(i[-1]):
-                    string += "`"
-                else:
-                    string += "`, "
+                string += f"`{str(a)}"
+                string += "`" if sira == i.index(i[-1]) else "`, "
             string += "\n"
         await eor(
             event,

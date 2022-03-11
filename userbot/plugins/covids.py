@@ -17,7 +17,7 @@ async def _(event):
             response = conv.wait_event(
                 events.NewMessage(incoming=True, from_users=1124136160)
             )
-            await event.client.send_message(chat, "{}".format(input_str))
+            await event.client.send_message(chat, f"{input_str}")
             response = await response
         except YouBlockedUserError:
             await event.reply("```Boss! Please Unblock (@NovelCoronaBot) ```")

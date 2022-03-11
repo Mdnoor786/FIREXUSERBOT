@@ -298,9 +298,7 @@ async def pin(msg):
         await edit_or_reply(msg, "Reply to a message to pin it.")
         return
     options = msg.pattern_match.group(1)
-    is_silent = True
-    if options.lower() == "loud":
-        is_silent = False
+    is_silent = options.lower() != "loud"
     try:
         await msg.client(UpdatePinnedMessageRequest(msg.to_id, to_pin, is_silent))
     except BadRequestError:
@@ -344,7 +342,7 @@ async def kick(usr):
         await usr.client.kick_participant(usr.chat_id, user.id)
         await sleep(0.5)
     except Exception as e:
-        await eviralevent.edit(NO_PERM + f"\n{str(e)}")
+        await eviralevent.edit(f"{NO_PERM}\n{str(e)}")
         return
     if reason:
         await eviralevent.edit(
@@ -364,8 +362,6 @@ async def kick(usr):
 @bot.on(admin_cmd("undelete$"))
 @bot.on(sudo_cmd(pattern="undelete$", allow_sudo=True))
 async def _(event):
-    if event.fwd_from:
-        return
     if event.fwd_from:
         return
     c = await event.get_chat()

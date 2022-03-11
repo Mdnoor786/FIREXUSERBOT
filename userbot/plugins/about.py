@@ -20,13 +20,13 @@ file4 = "https://te.legra.ph/file/d17467283e73c884834a5.jpg"
 file5 = "https://telegra.ph/file/af51de2749a4506d3eb43.jpg"
 """ =======================CONSTANTS====================== """
 pm_caption = f"** {CUSTOM_ALIVE_TEXT}**\n"
-pm_caption += f"**╭────────────**\n"
+pm_caption += "**╭────────────**\\n"
 pm_caption += f"┣»»»『{eviral_mention}』«««\n"
 pm_caption += f"┣FIRE-X ~ {eviralversion}\n"
-pm_caption += f"┣Lêɠêɳ̃d  ~ [Owner](https://t.me/Eviral)\n"
-pm_caption += f"┣Support ~ [G𝖗ουρ](https://t.me/FirexSupport)\n"
-pm_caption += f"┣Řepô    ~ [Rєρο](https://github.com/Teameviral/FIREX)\n"
-pm_caption += f"**╰────────────**\n"
+pm_caption += "┣Lêɠêɳ̃d  ~ [Owner](https://t.me/Eviral)\\n"
+pm_caption += "┣Support ~ [G𝖗ουρ](https://t.me/FirexSupport)\\n"
+pm_caption += "┣Řepô    ~ [Rєρο](https://github.com/Teameviral/FIREX)\\n"
+pm_caption += "**╰────────────**\\n"
 
 
 @borg.on(admin_cmd(pattern=r"about"))

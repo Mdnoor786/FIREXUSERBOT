@@ -28,7 +28,7 @@ class CmdHelp:
         self.FILE = file
         self.ORIGINAL_FILE = file
         self.IS_OFFICIAL = official
-        self.FILE_NAME = file_name if not file_name == None else file + ".py"
+        self.FILE_NAME = f'{file}.py' if file_name is None else file_name
         self.COMMANDS = {}
         self.FILE_AUTHOR = ""
         self.WARNING = ""
@@ -79,27 +79,25 @@ class CmdHelp:
             result += f"**⬇️ Official:** {'✅' if self.IS_OFFICIAL else '❌'}\n"
 
             if self.INFO == "":
-                if not self.WARNING == "":
-                    result += (
-                        f"**⚠️ 𝚆𝚊𝚛𝚗𝚒𝚗𝚐 :**  {CMD_HELP_BOT[cmd]['info']['warning']}\n\n"
-                    )
-                    result += f"**📍 Type :**  {CMD_HELP_BOT[cmd]['info']['type']}\n\n"
-            else:
-                if not self.WARNING == "":
-                    result += f"**⚠️ 𝚆𝚊𝚛𝚗𝚒𝚗𝚐 :** {self.WARNING}\n"
-                    result += f"**📍 Type:** {self.TYPE}\n"
-                    result += f"**ℹ️ Info:** {self.INFO}\n"
+                result += (
+                    f"**⚠️ 𝚆𝚊𝚛𝚗𝚒𝚗𝚐 :**  {CMD_HELP_BOT[cmd]['info']['warning']}\n\n"
+                )
+                result += f"**📍 Type :**  {CMD_HELP_BOT[cmd]['info']['type']}\n\n"
+            elif self.WARNING != "":
+                result += f"**⚠️ 𝚆𝚊𝚛𝚗𝚒𝚗𝚐 :** {self.WARNING}\n"
+                result += f"**📍 Type:** {self.TYPE}\n"
+                result += f"**ℹ️ Info:** {self.INFO}\n"
 
         for command in self.COMMANDS:
             command = self.COMMANDS[command]
-            if command["params"] == None:
+            if command["params"] is None:
                 result += (
                     f"**🛠 Command :** `{COMMAND_HAND_LER[:1]}{command['command']}`\n"
                 )
             else:
                 result += f"**🛠 Command :** `{COMMAND_HAND_LER[:1]}{command['command']} {command['params']}`\n"
 
-            if command["example"] == None:
+            if command["example"] is None:
                 result += f"**💬 Details :** `{command['usage']}`\n\n"
             else:
                 result += f"**💬 Details :** `{command['usage']}`\n"

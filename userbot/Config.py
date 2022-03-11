@@ -6,6 +6,8 @@ ENV = bool(os.environ.get("ENV", False))
 if ENV:
     import os
 
+
+
     class Config(object):
         NO_OF_COLOUMS_DISPLAYED_IN_H_ME_CMD = int(os.environ.get("NO_OF_COLUMNS", 2))
         # emoji to be displayed  in help .eviral
@@ -13,8 +15,7 @@ if ENV:
         # emoji to be displayed  in help .eviral
         BL_CHAT = os.environ.get("BL_CHAT", "-1001344140905")
         G_BAN_LOGGER_GROUP = int(os.environ.get("G_BAN_LOGGER_GROUP", -1001169892177))
-        FBAN_LOGGER_GROUP = os.environ.get("FBAN_LOGGER_GROUP", None)
-        if FBAN_LOGGER_GROUP:
+        if FBAN_LOGGER_GROUP := os.environ.get("FBAN_LOGGER_GROUP", None):
             FBAN_LOGGER_GROUP = int(FBAN_LOGGER_GROUP)
 
         EMOJI_IN_HELP1 = os.environ.get("EMOJI_IN_HELP1", "🚀 ")
@@ -29,7 +30,7 @@ if ENV:
         # specify list of users allowed to use bot
         # WARNING: be careful who you grant access to your bot.
         # malicious users could do ".exec rm -rf /*"
-        SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
+        SUDO_USERS = {int(x) for x in os.environ.get("SUDO_USERS", "").split()}
         # VeryStream only supports video formats
         VERY_STREAM_LOGIN = os.environ.get("VERY_STREAM_LOGIN", None)
         VERY_STREAM_KEY = os.environ.get("VERY_STREAM_KEY", None)
@@ -53,10 +54,8 @@ if ENV:
         AUTH_TOKEN_DATA = os.environ.get("AUTH_TOKEN_DATA", None)
         if AUTH_TOKEN_DATA != None:
             os.makedirs(TMP_DOWNLOAD_DIRECTORY)
-            t_file = open(TMP_DOWNLOAD_DIRECTORY + "auth_token.txt", "w")
-            t_file.write(AUTH_TOKEN_DATA)
-            t_file.close()
-
+            with open(f'{TMP_DOWNLOAD_DIRECTORY}auth_token.txt', "w") as t_file:
+                t_file.write(AUTH_TOKEN_DATA)
         YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
         GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", None)
         # MongoDB
@@ -114,8 +113,7 @@ if ENV:
         BOT_USERNAME = os.environ.get("BOT_USERNAME", None)
         FORCE_SUB = os.environ.get("FORCE_SUB", None)
         FORCE_CHANNEL_UN = os.environ.get("FORCE_CHANNEL_UN", None)
-        LOGGER_ID = os.environ.get("LOGGER_ID", None)
-        if LOGGER_ID:
+        if LOGGER_ID := os.environ.get("LOGGER_ID", None):
             LOGGER_ID = int(LOGGER_ID)
         PRIVATE_GROUP_ID = os.environ.get("LOGGER_ID", None)
         HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
@@ -163,9 +161,10 @@ if ENV:
         # TG API limit. A message can have maximum 4096 characters!
         MAX_MESSAGE_SIZE_LIMIT = 100000
         # set blacklist_chats where you do not want userbot's features
-        UB_BLACK_LIST_CHAT = set(
+        UB_BLACK_LIST_CHAT = {
             int(x) for x in os.environ.get("UB_BLACK_LIST_CHAT", "").split()
-        )
+        }
+
         # maximum number of messages for antiflood
         MAX_ANTI_FLOOD_MESSAGES = 5
         # warn mode for anti flood
@@ -193,20 +192,12 @@ if ENV:
         # heroku
         HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
         HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
-        # send .get_id in any channel to forward all your NEW PMs to this group
-        PRIVATE_GROUP_BOT_API_ID = os.environ.get("LOGGER_ID", None)
-        if PRIVATE_GROUP_BOT_API_ID:
+        if PRIVATE_GROUP_BOT_API_ID := os.environ.get("LOGGER_ID", None):
             PRIVATE_GROUP_BOT_API_ID = int(PRIVATE_GROUP_BOT_API_ID)
-        # send .get_id in your private channel to forward all your Private messages
-
-        TAG_LOGGER = os.environ.get("TAG_LOGGER", None)
-        if TAG_LOGGER:
+        if TAG_LOGGER := os.environ.get("TAG_LOGGER", None):
             TAG_LOGGER = int(TAG_LOGGER)
 
-        # Tag LOGGER
-
-        PM_LOGGR_BOT_API_ID = os.environ.get("LOGGER_ID", None)
-        if PM_LOGGR_BOT_API_ID:
+        if PM_LOGGR_BOT_API_ID := os.environ.get("LOGGER_ID", None):
             PM_LOGGR_BOT_API_ID = int(PM_LOGGR_BOT_API_ID)
         # For Databases
         # can be None in which case plugins requiring
@@ -219,7 +210,8 @@ if ENV:
         # open load
         OPEN_LOAD_LOGIN = os.environ.get("OPEN_LOAD_LOGIN", None)
         OPEN_LOAD_KEY = os.environ.get("OPEN_LOAD_KEY", None)
-        # number of colums of buttons to be displayed in .eviral command
+            # number of colums of buttons to be displayed in .eviral command
+
 
 else:
 

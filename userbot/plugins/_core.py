@@ -24,10 +24,10 @@ async def send(event):
     thumb = eviral_logo1
     input_str = event.pattern_match.group(1)
     omk = f"**⍟ 𝙿𝚕𝚞𝚐𝚒𝚗 𝚗𝚊𝚖𝚎 ≈** `{input_str}`\n**⍟ 𝚄𝚙𝚕𝚘𝚊𝚍𝚎𝚍 𝙱𝚢 ≈** {eviral_mention}\n\n⚜ **[FIRE-X](https://t.me/FirexSupport)** ⚜"
-    the_plugin_file = "./userbot/plugins/{}.py".format(input_str)
-    the_1plugin_file = "./userbot/plugins/Abuse/{}.py".format(input_str)
-    the_2plugin_file = "./userbot/plugins/Spam/{}.py".format(input_str)
-    the_3plugin_file = "./userbot/plugins/Xtra_Plugin/{}.py".format(input_str)
+    the_plugin_file = f"./userbot/plugins/{input_str}.py"
+    the_1plugin_file = f"./userbot/plugins/Abuse/{input_str}.py"
+    the_2plugin_file = f"./userbot/plugins/Spam/{input_str}.py"
+    the_3plugin_file = f"./userbot/plugins/Xtra_Plugin/{input_str}.py"
     if os.path.exists(the_plugin_file):
         lauda1 = await event.client.send_file(
             event.chat_id,
@@ -95,53 +95,53 @@ async def install(event):
                     "./userbot/plugins/",  # pylint:disable=E0602
                 )
             )
-            op = open(downloaded_file_name, "r")
-            rd = op.read()
-            op.close()
+            with open(downloaded_file_name, "r") as op:
+                rd = op.read()
             try:
-                if EVAL == "ON":
-                    if "session" in rd:
-                        os.remove(downloaded_file_name)
-                        await eviral.edit(
-                            f"**⚠️ WARNING !!** \n\n__Replied plugin file contains some harmful codes__."
-                        )
-                        return
-                    elif "(" not in downloaded_file_name:
-                        path1 = Path(downloaded_file_name)
-                        shortname = path1.stem
-                        load_module(shortname.replace(".py", ""))
-                        if shortname in CMD_LIST:
-                            string = "**Commands found in** `{}`\n".format(
-                                (os.path.basename(downloaded_file_name))
-                            )
-                            for i in CMD_LIST[shortname]:
-                                string += "  •  `" + i
-                                string += "`\n"
-                                if b == 1:
-                                    a = "__Installing..__"
-                                    b = 2
-                                else:
-                                    a = "__Installing...__"
-                                    b = 1
-                                await eviral.edit(a)
-                            return await eviral.edit(
-                                f"✅ **Installed module** :- `{shortname}` \n✨ BY :- {eviral_mention}\n\n{string}\n\n        ⚡ **[FIRE-X]({chnl_link})** ⚡",
-                                link_preview=False,
-                            )
-
-                        return await eviral.edit(
-                            f"Installed module `{os.path.basename(downloaded_file_name)}`"
-                        )
-                    else:
-                        os.remove(downloaded_file_name)
-                        return await eod(
-                            eviral,
-                            f"**Failed to Install** \n`Error`\nModule already installed or unknown format",
-                        )
-                else:
+                if EVAL != "ON":
                     return await eod(
                         eviral, "First Turn ON Eval CMD = `.set var EVAL ON`"
                     )
+                if "session" in rd:
+                    os.remove(downloaded_file_name)
+                    await eviral.edit(
+                        "**⚠️ WARNING !!** \\n\\n__Replied plugin file contains some harmful codes__."
+                    )
+
+                    return
+                elif "(" not in downloaded_file_name:
+                    path1 = Path(downloaded_file_name)
+                    shortname = path1.stem
+                    load_module(shortname.replace(".py", ""))
+                    if shortname in CMD_LIST:
+                        string = "**Commands found in** `{}`\n".format(
+                            (os.path.basename(downloaded_file_name))
+                        )
+                        for i in CMD_LIST[shortname]:
+                            string += f"  •  `{i}"
+                            string += "`\n"
+                            if b == 1:
+                                a = "__Installing..__"
+                                b = 2
+                            else:
+                                a = "__Installing...__"
+                                b = 1
+                            await eviral.edit(a)
+                        return await eviral.edit(
+                            f"✅ **Installed module** :- `{shortname}` \n✨ BY :- {eviral_mention}\n\n{string}\n\n        ⚡ **[FIRE-X]({chnl_link})** ⚡",
+                            link_preview=False,
+                        )
+
+                    return await eviral.edit(
+                        f"Installed module `{os.path.basename(downloaded_file_name)}`"
+                    )
+                else:
+                    os.remove(downloaded_file_name)
+                    return await eod(
+                        eviral,
+                        "**Failed to Install** \\n`Error`\\nModule already installed or unknown format",
+                    )
+
             except Exception as e:
                 await eod(eviral, f"{e}")
                 return os.remove(download_file_name)
@@ -204,9 +204,7 @@ async def load(event):
 async def install(event):
     if event.fwd_from:
         return
-    reply_to_id = event.message.id
-    if event.reply_to_msg_id:
-        reply_to_id = event.reply_to_msg_id
+    reply_to_id = event.reply_to_msg_id or event.message.id
     cmd = "ls userbot/plugins"
     thumb = eviral_logo1
     process = await asyncio.create_subprocess_shell(

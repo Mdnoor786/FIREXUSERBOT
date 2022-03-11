@@ -29,13 +29,13 @@ async def actresspp():
 
     pack = COLLECTION_STRING[rnd]
 
-    pc = requests.get("http://getwallpapers.com/collection/" + pack).text
+    pc = requests.get(f"http://getwallpapers.com/collection/{pack}").text
 
     f = re.compile("/\w+/full.+.jpg")
 
     f = f.findall(pc)
 
-    fy = "http://getwallpapers.com" + random.choice(f)
+    fy = f"http://getwallpapers.com{random.choice(f)}"
 
     print(fy)
 
@@ -98,13 +98,13 @@ async def avengersdps():
 
     pack = COLLECTION_STRING[rnd]
 
-    pc = requests.get("http://getwallpapers.com/collection/" + pack).text
+    pc = requests.get(f"http://getwallpapers.com/collection/{pack}").text
 
     f = re.compile("/\w+/full.+.jpg")
 
     f = f.findall(pc)
 
-    fy = "http://getwallpapers.com" + random.choice(f)
+    fy = f"http://getwallpapers.com{random.choice(f)}"
 
     print(fy)
 
@@ -162,13 +162,13 @@ async def hackpp():
 
     pack = COLLECTION_STRINGZ[rnd]
 
-    pc = requests.get("http://getwallpapers.com/collection/" + pack).text
+    pc = requests.get(f"http://getwallpapers.com/collection/{pack}").text
 
     f = re.compile("/\w+/full.+.jpg")
 
     f = f.findall(pc)
 
-    fy = "http://getwallpapers.com" + random.choice(f)
+    fy = f"http://getwallpapers.com{random.choice(f)}"
 
     print(fy)
 
@@ -252,13 +252,13 @@ async def marveldps():
 
     pack = COLLECTION_STRING[rnd]
 
-    pc = requests.get("http://getwallpapers.com/collection/" + pack).text
+    pc = requests.get(f"http://getwallpapers.com/collection/{pack}").text
 
     f = re.compile("/\w+/full.+.jpg")
 
     f = f.findall(pc)
 
-    fy = "http://getwallpapers.com" + random.choice(f)
+    fy = f"http://getwallpapers.com{random.choice(f)}"
 
     print(fy)
 
@@ -310,10 +310,10 @@ async def predatordps():
     os.system("rm -rf donot.jpg")
     rnd = random.randint(0, len(COLLECTION_STRING) - 1)
     pack = COLLECTION_STRING[rnd]
-    pc = requests.get("http://getwallpapers.com/collection/" + pack).text
+    pc = requests.get(f"http://getwallpapers.com/collection/{pack}").text
     f = re.compile("/\w+/full.+.jpg")
     f = f.findall(pc)
-    fy = "http://getwallpapers.com" + random.choice(f)
+    fy = f"http://getwallpapers.com{random.choice(f)}"
     print(fy)
     if not os.path.exists("f.ttf"):
         urllib.request.urlretrieve(
@@ -368,13 +368,13 @@ async def spacedps():
 
     pack = COLLECTION_STRINGS[rnd]
 
-    pc = requests.get("http://getwallpapers.com/collection/" + pack).text
+    pc = requests.get(f"http://getwallpapers.com/collection/{pack}").text
 
     f = re.compile("/\w+/full.+.jpg")
 
     f = f.findall(pc)
 
-    fy = "http://getwallpapers.com" + random.choice(f)
+    fy = f"http://getwallpapers.com{random.choice(f)}"
 
     print(fy)
 
@@ -506,13 +506,13 @@ async def actiondps():
 
     pack = COLLECTION_STRINGZ[rnd]
 
-    pc = requests.get("http://getwallpapers.com/collection/" + pack).text
+    pc = requests.get(f"http://getwallpapers.com/collection/{pack}").text
 
     f = re.compile("/\w+/full.+.jpg")
 
     f = f.findall(pc)
 
-    fy = "http://getwallpapers.com" + random.choice(f)
+    fy = f"http://getwallpapers.com{random.choice(f)}"
 
     print(fy)
 
@@ -577,13 +577,13 @@ async def animedps():
 
     pack = COLLECTION_STRING[rnd]
 
-    pc = requests.get("http://getwallpapers.com/collection/" + pack).text
+    pc = requests.get(f"http://getwallpapers.com/collection/{pack}").text
 
     f = re.compile("/\w+/full.+.jpg")
 
     f = f.findall(pc)
 
-    fy = "http://getwallpapers.com" + random.choice(f)
+    fy = f"http://getwallpapers.com{random.choice(f)}"
 
     print(fy)
 
@@ -643,10 +643,10 @@ async def gamerpfps():
     os.system("rm -rf donot.jpg")
     rnd = random.randint(0, len(COLLECTION_STRING) - 1)
     pack = COLLECTION_STRING[rnd]
-    pc = requests.get("http://getwallpapers.com/collection/" + pack).text
+    pc = requests.get(f"http://getwallpapers.com/collection/{pack}").text
     f = re.compile("/\w+/full.+.jpg")
     f = f.findall(pc)
-    fy = "http://getwallpapers.com" + random.choice(f)
+    fy = f"http://getwallpapers.com{random.choice(f)}"
     print(fy)
     if not os.path.exists("f.ttf"):
         urllib.request.urlretrieve(

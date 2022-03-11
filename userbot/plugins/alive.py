@@ -20,10 +20,7 @@ def get_readable_time(seconds: int) -> str:
 
     while count < 4:
         count += 1
-        if count < 3:
-            remainder, result = divmod(seconds, 60)
-        else:
-            remainder, result = divmod(seconds, 24)
+        remainder, result = divmod(seconds, 60) if count < 3 else divmod(seconds, 24)
         if seconds == 0 and remainder == 0:
             break
         time_list.append(int(result))
@@ -32,7 +29,7 @@ def get_readable_time(seconds: int) -> str:
     for x in range(len(time_list)):
         time_list[x] = str(time_list[x]) + time_suffix_list[x]
     if len(time_list) == 4:
-        ping_time += time_list.pop() + ", "
+        ping_time += f'{time_list.pop()}, '
 
     time_list.reverse()
     ping_time += ":".join(time_list)
@@ -60,13 +57,13 @@ async def amireallyalive(alive):
     if eviral_IMG:
         eviral_caption = f"**{CUSTOM_ALIVE_TEXT}**\n"
 
-        eviral_caption += f"~~~~~~~~~~~~~~~~~~~~~~~\n"
-        eviral_caption += f"        **✘𝕭𝖔† 𝕾𝖙𝖆𝖙𝖚𝖘✘** \n"
+        eviral_caption += "~~~~~~~~~~~~~~~~~~~~~~~\\n"
+        eviral_caption += "        **✘𝕭𝖔† 𝕾𝖙𝖆𝖙𝖚𝖘✘** \\n"
         eviral_caption += f"•🔥• **Oաղ̃ҽ̈ɾ**          ~ {ALIVE_NAME}\n\n"
         eviral_caption += f"•🌟• **𝖑𝖊ɠêɳ̃dẞø†**   ~ {eviralversion}\n"
         eviral_caption += f"•🌟• **†ҽ̀lҽ́thøղ̃**     ~ `{version.__version__}`\n"
         eviral_caption += f"•🌟• **𝚄ρtime**         ~ `{uptime}`\n"
-        eviral_caption += f"•🌟• **𝙶𝚛𝚘𝚞𝚙**           ~ [𝙶𝚛𝚘𝚞𝚙](t.me/FirexSupport)\n"
+        eviral_caption += "•🌟• **𝙶𝚛𝚘𝚞𝚙**           ~ [𝙶𝚛𝚘𝚞𝚙](t.me/FirexSupport)\\n"
         eviral_caption += f"•🌟• **𝙼𝚢 𝙶𝚛𝚘𝚞𝚙**  ~ {CUSTOM_YOUR_GROUP}\n"
 
         await alive.client.send_file(

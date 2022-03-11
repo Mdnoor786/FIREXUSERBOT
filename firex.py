@@ -38,12 +38,11 @@ class EVIRAL(TelegramClient):
             self.heroku_username = u["heroku_username"]
 
     def __str__(self):
-        detail = f"""
+        return f"""
 Your name is {self.me.first_name}
 Your username is @{self.me.username or "no Username"}
 Your bot Username is @{self.bot_username}
 Your heroku bot username is {self.heroku_username}"""
-        return detail
 
 
 if Config.eviral_STRING:

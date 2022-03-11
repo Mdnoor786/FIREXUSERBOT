@@ -33,7 +33,7 @@ async def _(event):
     async with event.client.action(event.chat_id, "typing"):
         await event.client.send_message(
             entity=event.chat_id,
-            message="""{}""".format(random.choice(tired_response)),
+            message=f"""{random.choice(tired_response)}""",
             reply_to=event.message.id,
         )
 
@@ -55,7 +55,7 @@ async def _(event):
         qeue = que.get(e)
         appendable = [e]
         qeue.append(appendable)
-        await event.edit(f"Added Ai To User")
+        await event.edit("Added Ai To User")
     else:
         user = event.pattern_match.group(1)
         event = await edit_or_reply(event, "adding ai to user")
@@ -67,7 +67,7 @@ async def _(event):
         qeue = que.get(e)
         appendable = [e]
         qeue.append(appendable)
-        await event.edit(f"added ai to user")
+        await event.edit("added ai to user")
 
 
 @bot.on(admin_cmd(pattern="rmvai(?: |$)(.*)"))
@@ -85,7 +85,7 @@ async def _(event):
         event = await edit_or_reply(event, "Removin Ai From user")
         queue = que.get(e)
         queue.pop(0)
-        await event.edit(f"Removed successfully")
+        await event.edit("Removed successfully")
     else:
         user = event.pattern_match.group(1)
         event = await edit_or_reply(event, "Removing Ai From User")
@@ -95,7 +95,7 @@ async def _(event):
         username = f"[{c}](tg://user?id={e})"
         queue = que.get(e)
         queue.pop(0)
-        await event.edit(f"Removed Ai From User")
+        await event.edit("Removed Ai From User")
 
 
 CmdHelp("chatbot").add_command(

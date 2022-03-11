@@ -15,10 +15,7 @@ MUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=True)
 async def is_admin(event, user):
     try:
         sed = await event.client.get_permissions(event.chat_id, user)
-        if sed.is_admin:
-            is_mod = True
-        else:
-            is_mod = False
+        is_mod = bool(sed.is_admin)
     except:
         is_mod = False
     return is_mod
@@ -61,7 +58,7 @@ async def fs(event):
         return await event.reply("I'm not an admin Mind Promoting Me?!")
     args = event.pattern_match.group(2)
     channel = args.replace("@", "")
-    if args == "on" or args == "On":
+    if args in ["on", "On"]:
         return await event.reply("❗Please Specify the Channel Username")
     if args in ("off", "no", "disable"):
         sql.disapprove(event.chat_id)
@@ -147,11 +144,10 @@ async def start_again(event):
         user = data.split("_", 1)[1]
     except:
         pass
-    if not event.sender_id == int(user):
+    if event.sender_id != int(user):
         return await event.answer("You are not the muted user!")
     chat_id = event.chat_id
-    chat_db = sql.fs_settings(chat_id)
-    if chat_db:
+    if chat_db := sql.fs_settings(chat_id):
         channel = chat_db.channel
         rip = await check_him(channel, event.sender_id)
         if rip is True:

@@ -44,10 +44,7 @@ PM_DATA = {Config.PM_DATA}
 """
 
 mybot = Config.BOT_USERNAME
-if mybot.startswith("@"):
-    botname = mybot
-else:
-    botname = f"@{mybot}"
+botname = mybot if mybot.startswith("@") else f"@{mybot}"
 
 
 @bot.on(admin_cmd(pattern="allvar$"))

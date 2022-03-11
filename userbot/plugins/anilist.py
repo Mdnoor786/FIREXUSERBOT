@@ -47,7 +47,6 @@ async def formatJSON(outData):
     res = list(jsonData.keys())
     if "errors" in res:
         msg += f"**Error** : `{jsonData['errors'][0]['message']}`"
-        return msg
     else:
         jsonData = jsonData["data"]["Media"]
         if "bannerImage" in jsonData.keys():
@@ -58,9 +57,9 @@ async def formatJSON(outData):
         link = f"https://anilist.co/anime/{jsonData['id']}"
         msg += f"[{title}]({link})"
         msg += f"\n\n**𝚃𝚢𝚙𝚎** : {jsonData['format']}"
-        msg += f"\n**𝙶𝚎𝚗𝚛𝚎𝚜** : "
+        msg += "\\n**𝙶𝚎𝚗𝚛𝚎𝚜** : "
         for g in jsonData["genres"]:
-            msg += g + " "
+            msg += f'{g} '
         msg += f"\n**𝚂𝚝𝚊𝚝𝚞𝚜** : {jsonData['status']}"
         msg += f"\n**𝙴𝚙𝚒𝚜𝚘𝚍𝚎** : {jsonData['episodes']}"
         msg += f"\n**𝚈𝚎𝚊𝚛** : {jsonData['startDate']['year']}"
@@ -69,7 +68,8 @@ async def formatJSON(outData):
         # https://t.me/FirexSupport/19496
         cat = f"{jsonData['description']}"
         msg += " __" + re.sub("<br>", "\n", cat) + "__"
-        return msg
+
+    return msg
 
 
 @bot.on(admin_cmd(pattern="anilist (.*)"))

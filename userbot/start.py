@@ -26,11 +26,7 @@ onbot = "start - Check if I am Alive \nhack - Hack Anyone Through String Session
 bot_father = "@BotFather"
 
 mybot = Config.BOT_USERNAME
-if mybot.startswith("@"):
-    botname = mybot
-else:
-    botname = f"@{mybot}"
-
+botname = mybot if mybot.startswith("@") else f"@{mybot}"
 plc = os.environ.get("PLUGIN", None)
 
 
@@ -46,7 +42,7 @@ async def hekp():
                 caption=f"Deployed FIRE-X Successfully\n\nFIRE-X ~ {eviralversion}\n\nType `{l1}help` or `{l1}ping` to check!\nFor Assistant Type `.on` \n\nJoin [FIREX Channel](t.me/Official_FIREX) for Updates & [FIREX Chat](t.me/FirexSupport) for any query regarding FIREX",
             )
     except Exception as e:
-        print(str(e))
+        print(e)
 
     try:
         await bot(JoinChannelRequest("@Official_FIREX"))
@@ -150,27 +146,28 @@ async def spams():
 
 
 async def install():
-    if plc == "ON":
-        try:
-            await bot(JoinChannelRequest("@FirexSupportPlugin"))
-        except BaseException:
-            pass
-        i = 0
-        chat = -1001518412326
-        documentss = await bot.get_messages(
-            chat, None, filter=InputMessagesFilterDocument
+    if plc != "ON":
+        return
+    try:
+        await bot(JoinChannelRequest("@FirexSupportPlugin"))
+    except BaseException:
+        pass
+    i = 0
+    chat = -1001518412326
+    documentss = await bot.get_messages(
+        chat, None, filter=InputMessagesFilterDocument
+    )
+    total = int(documentss.total)
+    total_doxx = range(total)
+    for ixo in total_doxx:
+        mxo = documentss[ixo].id
+        downloaded_file_name = await bot.download_media(
+            await bot.get_messages(chat, ids=mxo), "userbot/plugins/"
         )
-        total = int(documentss.total)
-        total_doxx = range(0, total)
-        for ixo in total_doxx:
-            mxo = documentss[ixo].id
-            downloaded_file_name = await bot.download_media(
-                await bot.get_messages(chat, ids=mxo), "userbot/plugins/"
-            )
-            if "(" not in downloaded_file_name:
-                path1 = Path(downloaded_file_name)
-                shortname = path1.stem
-                load_module(shortname.replace(".py", ""))
-                print(f"{i} plugin install")
-            else:
-                print("Failed")
+        if "(" not in downloaded_file_name:
+            path1 = Path(downloaded_file_name)
+            shortname = path1.stem
+            load_module(shortname.replace(".py", ""))
+            print(f"{i} plugin install")
+        else:
+            print("Failed")

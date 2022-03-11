@@ -25,10 +25,7 @@ onbot = "start - Check if I am Alive \nhack - Hack Anyone Through String Session
 bot_father = "@BotFather"
 
 mybot = Config.BOT_USERNAME
-if mybot.startswith("@"):
-    botname = mybot
-else:
-    botname = f"@{mybot}"
+botname = mybot if mybot.startswith("@") else f"@{mybot}"
 
 
 async def add_bot(bot_token):
@@ -169,7 +166,7 @@ async def help(event):
     if event.query.user_id == bot.uid:
         await firebot.send_message(
             event.chat_id,
-            message=f"Var Explaination Without Going To Heroku",
+            message="Var Explaination Without Going To Heroku",
             buttons=[
                 [
                     custom.Button.inline("Var Explain", data="var"),
@@ -243,8 +240,6 @@ async def users(event):
                 caption="Total Users In Your Bot.",
                 allow_cache=False,
             )
-    else:
-        pass
 
 
 @firebot.on(events.callbackquery.CallbackQuery(data=re.compile(b"gibcmd")))

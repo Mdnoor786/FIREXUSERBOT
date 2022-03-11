@@ -31,10 +31,7 @@ def get_readable_time(seconds: int) -> str:
 
     while count < 4:
         count += 1
-        if count < 3:
-            remainder, result = divmod(seconds, 60)
-        else:
-            remainder, result = divmod(seconds, 24)
+        remainder, result = divmod(seconds, 60) if count < 3 else divmod(seconds, 24)
         if seconds == 0 and remainder == 0:
             break
         time_list.append(int(result))
@@ -43,7 +40,7 @@ def get_readable_time(seconds: int) -> str:
     for x in range(len(time_list)):
         time_list[x] = str(time_list[x]) + time_suffix_list[x]
     if len(time_list) == 4:
-        ping_time += time_list.pop() + ", "
+        ping_time += f'{time_list.pop()}, '
 
     time_list.reverse()
     ping_time += ":".join(time_list)
@@ -64,12 +61,12 @@ async def amireallyalive(event):
     if eviral_IMG:
         eviral_caption = f"**{eviral_mention}**\n"
 
-        eviral_caption += f"~~~~~~~~~~~~~~~~~~~~~~~\n"
-        eviral_caption += f"     ⚜ 𝓛𝓮𝓰𝓮𝓷𝓭𝓑𝓸𝓽 𝓘𝓼 𝓐𝔀𝓪𝓴𝓮 ⚜\n"
-        eviral_caption += f"•🔥• FIRE-X     : ν3.0\n"
+        eviral_caption += "~~~~~~~~~~~~~~~~~~~~~~~\\n"
+        eviral_caption += "     ⚜ 𝓛𝓮𝓰𝓮𝓷𝓭𝓑𝓸𝓽 𝓘𝓼 𝓐𝔀𝓪𝓴𝓮 ⚜\\n"
+        eviral_caption += "•🔥• FIRE-X     : ν3.0\\n"
         eviral_caption += f"•🔥• 𝚃𝙴𝙻𝙴𝚃𝙷𝙾𝙽      : `{version.__version__}`\n"
         eviral_caption += f"•🔥• 𝚄𝙿𝚃𝙸𝙼𝙴         : `{uptime}`\n"
-        eviral_caption += f"•🔥• 𝙲𝙷𝙰𝙽𝙽𝙴𝙻        : [𝕮нαииєℓ](t.me/Official_FIREX)\n"
+        eviral_caption += "•🔥• 𝙲𝙷𝙰𝙽𝙽𝙴𝙻        : [𝕮нαииєℓ](t.me/Official_FIREX)\\n"
         eviral_caption += f"•🔥• ᴹʸ 𝙶𝚁𝙾𝚄𝙿 : {CUSTOM_YOUR_GROUP}\n"
 
         await event.client.send_file(

@@ -25,9 +25,8 @@ bothandler = Config.BOT_HANDLER
 ENV = bool(os.environ.get("ENV", False))
 if ENV:
     from userbot.Config import Config
-else:
-    if os.path.exists("config.py"):
-        from config import Development as Config
+elif os.path.exists("config.py"):
+    from config import Development as Config
 
 
 def load_module(shortname):
@@ -37,16 +36,16 @@ def load_module(shortname):
         import userbot.utils
 
         path = Path(f"userbot/plugins/{shortname}.py")
-        name = "userbot.plugins.{}".format(shortname)
+        name = f"userbot.plugins.{shortname}"
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
-        LOGS.info("FIRE-X ~ " + shortname)
+        LOGS.info(f"FIRE-X ~ {shortname}")
     else:
         import userbot.utils
 
         path = Path(f"userbot/plugins/{shortname}.py")
-        name = "userbot.plugins.{}".format(shortname)
+        name = f"userbot.plugins.{shortname}"
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
         mod.bot = eviral
@@ -75,8 +74,8 @@ def load_module(shortname):
         sys.modules["userbot.events"] = userbot.utils
         spec.loader.exec_module(mod)
         # for imports
-        sys.modules["userbot.plugins." + shortname] = mod
-        LOGS.info("🔥⚡FIRE-X⚡🔥 ~ " + shortname)
+        sys.modules[f"userbot.plugins.{shortname}"] = mod
+        LOGS.info(f"🔥⚡FIRE-X⚡🔥 ~ {shortname}")
 
 
 def start_assistant(shortname):
@@ -84,21 +83,21 @@ def start_assistant(shortname):
         pass
     elif shortname.endswith("_"):
         path = Path(f"userbot/plugins/assistant/{shortname}.py")
-        name = "userbot.plugins.assistant.{}".format(shortname)
+        name = f"userbot.plugins.assistant.{shortname}"
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         print("Starting Your Assistant Bot.")
-        print("Assistant Sucessfully imported " + shortname)
+        print(f"Assistant Sucessfully imported {shortname}")
     else:
         path = Path(f"userbot/plugins/assistant/{shortname}.py")
-        name = "userbot.plugins.assistant.{}".format(shortname)
+        name = f"userbot.plugins.assistant.{shortname}"
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
         mod.firebot = bot.firebot
         spec.loader.exec_module(mod)
-        sys.modules["userbot.plugins.assistant" + shortname] = mod
-        print("[🤴Assistant🤴 3.0] ~ HAS ~ 💞Installed💞 ~" + shortname)
+        sys.modules[f"userbot.plugins.assistant{shortname}"] = mod
+        print(f"[🤴Assistant🤴 3.0] ~ HAS ~ 💞Installed💞 ~{shortname}")
 
 
 def start_spam(shortname):
@@ -110,25 +109,25 @@ def start_spam(shortname):
         from pathlib import Path
 
         path = Path(f"userbot/plugins/Spam/{shortname}.py")
-        name = "userbot.plugins.Spam.{}".format(shortname)
+        name = f"userbot.plugins.Spam.{shortname}"
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         print("Starting Your Spam Bot.")
-        print("SpamBot Sucessfully imported " + shortname)
+        print(f"SpamBot Sucessfully imported {shortname}")
     else:
         import importlib
         import sys
         from pathlib import Path
 
         path = Path(f"userbot/plugins/Spam/{shortname}.py")
-        name = "userbot.plugins.Spam.{}".format(shortname)
+        name = f"userbot.plugins.Spam.{shortname}"
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
         mod.firebot = bot.firebot
         spec.loader.exec_module(mod)
-        sys.modules["Spam" + shortname] = mod
-        print("[🔰Spam🔰 3.0] ~ HAS ~ 💞Installed💞 ~" + shortname)
+        sys.modules[f"Spam{shortname}"] = mod
+        print(f"[🔰Spam🔰 3.0] ~ HAS ~ 💞Installed💞 ~{shortname}")
 
 
 def load_addons(shortname):
@@ -142,11 +141,11 @@ def load_addons(shortname):
         import userbot.utils
 
         path = Path(f"userbot/plugins/Xtra_Plugin/{shortname}.py")
-        name = "userbot.plugins.FIREX-Addons.{}".format(shortname)
+        name = f"userbot.plugins.FIREX-Addons.{shortname}"
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
-        LOGS.info("♦️Extra Plugin♦️ ~ " + shortname)
+        LOGS.info(f"♦️Extra Plugin♦️ ~ {shortname}")
     else:
         import importlib
         import sys
@@ -155,7 +154,7 @@ def load_addons(shortname):
         import userbot.utils
 
         path = Path(f"userbot/plugins/Xtra_Plugin/{shortname}.py")
-        name = "userbot.plugins.Xtra_Plugin.{}".format(shortname)
+        name = f"userbot.plugins.Xtra_Plugin.{shortname}"
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
         mod.eviral = eviral
@@ -185,8 +184,8 @@ def load_addons(shortname):
         sys.modules["userbot.events"] = userbot.utils
         spec.loader.exec_module(mod)
         # for imports
-        sys.modules["FIREX-Addons." + shortname] = mod
-        LOGS.info("📍Extra Plugin📍 ~ " + shortname)
+        sys.modules[f"FIREX-Addons.{shortname}"] = mod
+        LOGS.info(f"📍Extra Plugin📍 ~ {shortname}")
 
 
 def load_abuse(shortname):
@@ -200,11 +199,11 @@ def load_abuse(shortname):
         import userbot.utils
 
         path = Path(f"userbot/plugins/Abuse/{shortname}.py")
-        name = "userbot/plugins/Abuse.{}".format(shortname)
+        name = f"userbot/plugins/Abuse.{shortname}"
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
-        LOGS.info("FIREX-Abuse ~ " + shortname)
+        LOGS.info(f"FIREX-Abuse ~ {shortname}")
     else:
         import importlib
         import sys
@@ -213,7 +212,7 @@ def load_abuse(shortname):
         import userbot.utils
 
         path = Path(f"userbot/plugins/Abuse/{shortname}.py")
-        name = "userbot/plugins/Abuse.{}".format(shortname)
+        name = f"userbot/plugins/Abuse.{shortname}"
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
         mod.bot = eviral
@@ -241,8 +240,8 @@ def load_abuse(shortname):
         sys.modules["userbot.events"] = userbot.utils
         spec.loader.exec_module(mod)
         # for imports
-        sys.modules["ABUSE." + shortname] = mod
-        LOGS.info("🔱FIREX-Abuse🔱 ~ " + shortname)
+        sys.modules[f"ABUSE.{shortname}"] = mod
+        LOGS.info(f"🔱FIREX-Abuse🔱 ~ {shortname}")
 
 
 def assistant_cmd(add_cmd, is_args=False):
@@ -302,10 +301,10 @@ def admin_cmd(pattern=None, command=None, **args):
                 CMD_LIST.update({file_test: [cmd]})
         else:
             if len(Config.COMMAND_HAND_LER) == 2:
-                eviralreg = "^" + Config.COMMAND_HAND_LER
+                eviralreg = f"^{Config.COMMAND_HAND_LER}"
                 reg = Config.COMMAND_HAND_LER[1]
             elif len(Config.COMMAND_HAND_LER) == 1:
-                eviralreg = "^\\" + Config.COMMAND_HAND_LER
+                eviralreg = f"^\\{Config.COMMAND_HAND_LER}"
                 reg = Config.COMMAND_HAND_LER
             args["pattern"] = re.compile(eviralreg + pattern)
             if command is not None:
@@ -333,8 +332,7 @@ def admin_cmd(pattern=None, command=None, **args):
 
     # add blacklist chats, UB should not respond in these chats
     args["blacklist_chats"] = True
-    black_list_chats = list(Config.UB_BLACK_LIST_CHAT)
-    if black_list_chats:
+    if black_list_chats := list(Config.UB_BLACK_LIST_CHAT):
         args["chats"] = black_list_chats
 
     # add blacklist chats, UB should not respond in these chats
@@ -435,10 +433,10 @@ def sudo_cmd(pattern=None, command=None, **args):
                 SUDO_LIST.update({file_test: [cmd]})
         else:
             if len(Config.SUDO_COMMAND_HAND_LER) == 2:
-                eviralreg = "^" + Config.SUDO_COMMAND_HAND_LER
+                eviralreg = f"^{Config.SUDO_COMMAND_HAND_LER}"
                 reg = Config.SUDO_COMMAND_HAND_LER[1]
             elif len(Config.SUDO_COMMAND_HAND_LER) == 1:
-                eviralreg = "^\\" + Config.SUDO_COMMAND_HAND_LER
+                eviralreg = f"^\\{Config.SUDO_COMMAND_HAND_LER}"
                 reg = Config.COMMAND_HAND_LER
             args["pattern"] = re.compile(eviralreg + pattern)
             if command is not None:
@@ -463,8 +461,7 @@ def sudo_cmd(pattern=None, command=None, **args):
         args["outgoing"] = True
     # add blacklist chats, UB should not respond in these chats
     args["blacklist_chats"] = True
-    black_list_chats = list(Config.UB_BLACK_LIST_CHAT)
-    if black_list_chats:
+    if black_list_chats := list(Config.UB_BLACK_LIST_CHAT):
         args["chats"] = black_list_chats
     # add blacklist chats, UB should not respond in these chats
     if "allow_edited_updates" in args and args["allow_edited_updates"]:
@@ -512,13 +509,13 @@ async def edit_or_reply(
                 .get("result")
                 .get("key")
             )
-            text = linktext + f" [here](https://nekobin.com/{key})"
+            text = f"{linktext} [here](https://nekobin.com/{key})"
         except:
             text = re.sub(r"•", ">>", text)
             kresult = requests.post(
                 "https://del.dog/documents", data=text.encode("UTF-8")
             ).json()
-            text = linktext + f" [here](https://del.dog/{kresult['key']})"
+            text = f"{linktext} [here](https://del.dog/{kresult['key']})"
         if event.sender_id in Config.SUDO_USERS:
             if reply_to:
                 return await reply_to.reply(text, link_preview=link_preview)
@@ -578,13 +575,13 @@ async def eor(
                 .get("result")
                 .get("key")
             )
-            text = linktext + f" [here](https://nekobin.com/{key})"
+            text = f"{linktext} [here](https://nekobin.com/{key})"
         except:
             text = re.sub(r"•", ">>", text)
             kresult = requests.post(
                 "https://del.dog/documents", data=text.encode("UTF-8")
             ).json()
-            text = linktext + f" [here](https://del.dog/{kresult['key']})"
+            text = f"{linktext} [here](https://del.dog/{kresult['key']})"
         if event.sender_id in Config.SUDO_USERS:
             if reply_to:
                 return await reply_to.reply(text, link_preview=link_preview)
@@ -649,15 +646,16 @@ def errors_handler(func):
             date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
             new = {"error": str(sys.exc_info()[1]), "date": datetime.datetime.now()}
 
-            text = "**USERBOT CRASH REPORT**\n\n"
-
             link = "[here](https://t.me/Eviral)"
-            text += "If you wanna you can report it"
+            text = "**USERBOT CRASH REPORT**\n\n" + "If you wanna you can report it"
             text += f"- just forward this message {link}.\n"
             text += "Nothing is logged except the fact of error and date\n"
 
-            ftext = "\nDisclaimer:\nThis file uploaded ONLY here,"
-            ftext += "\nwe logged only fact of error and date,"
+            ftext = (
+                "\nDisclaimer:\nThis file uploaded ONLY here,"
+                + "\nwe logged only fact of error and date,"
+            )
+
             ftext += "\nwe respect your privacy,"
             ftext += "\nyou may not report this error if you've"
             ftext += "\nany confidential data here, no one will see your data\n\n"
@@ -704,10 +702,11 @@ async def progress(
         time_to_completion = round((total - current) / speed) * 1000
         estimated_total_time = elapsed_time + time_to_completion
         progress_str = "[{0}{1}] {2}%\n".format(
-            "".join(["▰" for i in range(math.floor(percentage / 10))]),
-            "".join(["▱" for i in range(10 - math.floor(percentage / 10))]),
+            "".join(["▰" for _ in range(math.floor(percentage / 10))]),
+            "".join(["▱" for _ in range(10 - math.floor(percentage / 10))]),
             round(percentage, 2),
         )
+
         tmp = progress_str + "{0} of {1}\nETA: {2}".format(
             humanbytes(current), humanbytes(total), time_formatter(estimated_total_time)
         )
@@ -732,7 +731,7 @@ def humanbytes(size):
     while size > power:
         size /= power
         raised_to_pow += 1
-    return str(round(size, 2)) + " " + dict_power_n[raised_to_pow] + "B"
+    return f'{str(round(size, 2))} {dict_power_n[raised_to_pow]}B'
 
 
 def human_to_bytes(size: str) -> int:
@@ -754,17 +753,18 @@ def human_to_bytes(size: str) -> int:
 
 # Inputs time in milliseconds, to get beautified time, as string
 def time_formatter(milliseconds: int) -> str:
-    seconds, milliseconds = divmod(int(milliseconds), 1000)
+    seconds, milliseconds = divmod(milliseconds, 1000)
     minutes, seconds = divmod(seconds, 60)
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
     tmp = (
-        ((str(days) + " day(s), ") if days else "")
-        + ((str(hours) + " hour(s), ") if hours else "")
-        + ((str(minutes) + " minute(s), ") if minutes else "")
-        + ((str(seconds) + " second(s), ") if seconds else "")
-        + ((str(milliseconds) + " millisecond(s), ") if milliseconds else "")
+        (f'{str(days)} day(s), ' if days else "")
+        + (f'{str(hours)} hour(s), ' if hours else "")
+        + (f'{str(minutes)} minute(s), ' if minutes else "")
+        + (f'{str(seconds)} second(s), ' if seconds else "")
+        + (f'{str(milliseconds)} millisecond(s), ' if milliseconds else "")
     )
+
     return tmp[:-2]
 
 

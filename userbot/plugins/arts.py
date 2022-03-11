@@ -537,10 +537,9 @@ async def bluedevilhello(hello):
     await hello.get_chat()
     good = await eor(hello, "**(❛ Hi ❜!**")
     if HELL_PIC:
-        HELLO = f"╔┓┏╦━╦┓╔┓╔━━╗\n"
-        HELLO += f"║┗┛║┗╣┃║┃║X X ║\n"
-        HELLO += f"║┏┓║┏╣┗╣┗╣╰╯║\n"
-        HELLO += f"╚┛┗╩━╩━╩━╩━━╝\n"
+        HELLO = "╔┓┏╦━╦┓╔┓╔━━╗\\n" + "║┗┛║┗╣┃║┃║X X ║\\n"
+        HELLO += "║┏┓║┏╣┗╣┗╣╰╯║\\n"
+        HELLO += "╚┛┗╩━╩━╩━╩━━╝\\n"
         on = await borg.send_file(hello.chat_id, file=HELL_PIC, caption=HELLO)
         await asyncio.sleep(3)
         ok = await borg.edit_message(hello.chat_id, on, file=K_PIC)
@@ -614,7 +613,7 @@ async def bluedevilbye(bye):
     if bye.fwd_from:
         return
     if BYE_PIC:
-        BYE = f"🚶🏻‍♂️🚶🏻‍♂️ɮʏɛ ʄʀɨɛռɖֆ..."
+        BYE = "🚶🏻\u200d♂️🚶🏻\u200d♂️ɮʏɛ ʄʀɨɛռɖֆ..."
 
         bye = await edit_or_reply(bye, "**(❛ Bye ❜!**")
         await bye.client.send_file(bye.chat_id, BYE_PIC, caption=BYE)

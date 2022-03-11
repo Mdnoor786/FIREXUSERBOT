@@ -14,7 +14,7 @@ async def _(event):
     if event.fwd_from:
         return
     animation_interval = 1
-    animation_ttl = range(0, 50)
+    animation_ttl = range(50)
     await event.edit("Happy Diwali Dosto🤗")
     animation_chars = [
         """-----💜happy💜diwali💜
@@ -1273,7 +1273,7 @@ async def _(event):
     if event.fwd_from:
         return
     animation_interval = 1
-    animation_ttl = range(0, 20)
+    animation_ttl = range(20)
     await event.edit("❤Happy Diwali Dosto❤")
     animation_chars = [
         "💖happy💖diwali💖",
@@ -1294,7 +1294,7 @@ async def _(event):
     if event.fwd_from:
         return
     animation_interval = 1
-    animation_ttl = range(0, 22)
+    animation_ttl = range(22)
     await event.edit("❤Dosto❤")
     animation_chars = [
         """💜💜                        💜💜
@@ -1427,20 +1427,21 @@ async def xd(event):
     await event.edit("wishing to all.....")
     event.pattern_match.group(1)
     async for tele in borg.iter_dialogs():
-        lol = 0
-        done = 0
         if tele.is_group:
             chat = tele.id
+            lol = 0
+            done = 0
             try:
                 await bot.send_message(
                     chat,
-                    f"⁭💖💖                        💖💖\n 💖💖                      💖💖\n💖💖                        💖💖\n💖💖                        💖💖\n💖💖💖💖💖💖💖💖💖\n💖💖💖💖💖💖💖💖💖\n💖💖                        💖💖\n💖💖                        💖💖\n💖💖                        💖💖\n💖💖                        💖💖\n\n                    💖\n                  💖💖\n               💖💖💖\n            💖💖 💖💖\n          💖💖    💖💖\n        💖💖       💖💖\n      💖💖💖💖💖💖\n     💖💖💖💖💖💖💖\n   💖💖                 💖💖\n  💖💖                    💖💖\n💖💖                       💖💖\n\n💗💗💗💗💗💗💗\n💗💗💗💗💗💗💗💗\n💗💗                     💗💗\n💗💗                     💗💗\n💗💗💗💗💗💗💗💗\n💗💗💗💗💗💗💗\n💗💗\n💗💗\n💗💗\n💗💗\n\n💗💗💗💗💗💗💗\n💗💗💗💗💗💗💗💗\n💗💗                     💗💗\n💗💗                     💗💗\n💗💗💗💗💗💗💗💗\n💗💗💗💗💗💗💗\n💗💗\n💗💗\n💗💗\n💗💗\n\n💙💙                    💙💙\n   💙💙              💙💙\n      💙💙        💙💙\n         💙💙  💙💙\n            💙💙💙\n              💙💙\n              💙💙\n              💙💙\n              💙💙\n              💙💙\n h💙💙💙💙💙💙💙\n💙💙💙💙💙💙💙💙\n💙💙                      💙💙\n💙💙                         💙💙\n💙💙                         💙💙\n💙💙                         💙💙\n💙💙                         💙💙\n💙💙                      💙💙\n💙💙💙💙💙💙💙💙\n💙💙💙💙💙💙💙\n\n💗💗💗💗💗💗\n💗💗💗💗💗💗\n          💗💗\n         💗💗\n          💗💗\n          💗💗\n          💗💗\n          💗💗\n💗💗💗💗💗💗\n💗💗💗💗💗💗\n⁭\n💗💗                               💗💗\n💗💗                               💗💗\n💗💗                               💗💗\n💗💗                               💗💗\n💗💗              💗            💗💗\n 💗💗           💗💗          💗💗\n 💗💗        💗💗💗       💗💗\n  💗💗   💗💗  💗💗   💗💗\n   💗💗💗💗      💗💗💗💗\n    💗💗💗             💗💗💗\n⁭\n                    💖\n                  💖💖\n               💖💖💖\n            💖💖 💖💖\n          💖💖    💖💖\n        💖💖       💖💖\n      💖💖💖💖💖💖\n     💖💖💖💖💖💖💖\n   💖💖                 💖💖\n  💖💖                    💖💖\n💖💖                       💖💖\n⁭\n💟💟\n💟💟\n💟💟\n💟💟\n💟💟\n💟💟\n💟💟\n💟💟\n💟💟💟💟💟💟💟💟\n💟💟💟💟💟💟💟💟\n⁭\n💗💗💗💗💗💗\n💗💗💗💗💗💗\n          💗💗\n          💗💗\n          💗💗\n          💗💗\n          💗💗\n          💗💗\n💗💗💗💗💗💗\n💗💗💗💗💗💗",
+                    "\u206d💖💖                        💖💖\\n 💖💖                      💖💖\\n💖💖                        💖💖\\n💖💖                        💖💖\\n💖💖💖💖💖💖💖💖💖\\n💖💖💖💖💖💖💖💖💖\\n💖💖                        💖💖\\n💖💖                        💖💖\\n💖💖                        💖💖\\n💖💖                        💖💖\\n\\n                    💖\\n                  💖💖\\n               💖💖💖\\n            💖💖 💖💖\\n          💖💖    💖💖\\n        💖💖       💖💖\\n      💖💖💖💖💖💖\\n     💖💖💖💖💖💖💖\\n   💖💖                 💖💖\\n  💖💖                    💖💖\\n💖💖                       💖💖\\n\\n💗💗💗💗💗💗💗\\n💗💗💗💗💗💗💗💗\\n💗💗                     💗💗\\n💗💗                     💗💗\\n💗💗💗💗💗💗💗💗\\n💗💗💗💗💗💗💗\\n💗💗\\n💗💗\\n💗💗\\n💗💗\\n\\n💗💗💗💗💗💗💗\\n💗💗💗💗💗💗💗💗\\n💗💗                     💗💗\\n💗💗                     💗💗\\n💗💗💗💗💗💗💗💗\\n💗💗💗💗💗💗💗\\n💗💗\\n💗💗\\n💗💗\\n💗💗\\n\\n💙💙                    💙💙\\n   💙💙              💙💙\\n      💙💙        💙💙\\n         💙💙  💙💙\\n            💙💙💙\\n              💙💙\\n              💙💙\\n              💙💙\\n              💙💙\\n              💙💙\\n h💙💙💙💙💙💙💙\\n💙💙💙💙💙💙💙💙\\n💙💙                      💙💙\\n💙💙                         💙💙\\n💙💙                         💙💙\\n💙💙                         💙💙\\n💙💙                         💙💙\\n💙💙                      💙💙\\n💙💙💙💙💙💙💙💙\\n💙💙💙💙💙💙💙\\n\\n💗💗💗💗💗💗\\n💗💗💗💗💗💗\\n          💗💗\\n         💗💗\\n          💗💗\\n          💗💗\\n          💗💗\\n          💗💗\\n💗💗💗💗💗💗\\n💗💗💗💗💗💗\\n\u206d\\n💗💗                               💗💗\\n💗💗                               💗💗\\n💗💗                               💗💗\\n💗💗                               💗💗\\n💗💗              💗            💗💗\\n 💗💗           💗💗          💗💗\\n 💗💗        💗💗💗       💗💗\\n  💗💗   💗💗  💗💗   💗💗\\n   💗💗💗💗      💗💗💗💗\\n    💗💗💗             💗💗💗\\n\u206d\\n                    💖\\n                  💖💖\\n               💖💖💖\\n            💖💖 💖💖\\n          💖💖    💖💖\\n        💖💖       💖💖\\n      💖💖💖💖💖💖\\n     💖💖💖💖💖💖💖\\n   💖💖                 💖💖\\n  💖💖                    💖💖\\n💖💖                       💖💖\\n\u206d\\n💟💟\\n💟💟\\n💟💟\\n💟💟\\n💟💟\\n💟💟\\n💟💟\\n💟💟\\n💟💟💟💟💟💟💟💟\\n💟💟💟💟💟💟💟💟\\n\u206d\\n💗💗💗💗💗💗\\n💗💗💗💗💗💗\\n          💗💗\\n          💗💗\\n          💗💗\\n          💗💗\\n          💗💗\\n          💗💗\\n💗💗💗💗💗💗\\n💗💗💗💗💗💗",
                 )
+
                 done += 1
             except:
                 lol += 1
     await event.reply(
-        f"happy Janmashtami from FIREX support\nthanks for using this Plugin."
+        "happy Janmashtami from FIREX support\\nthanks for using this Plugin."
     )
 
 

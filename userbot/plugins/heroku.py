@@ -41,9 +41,10 @@ async def variable(var):
         if (HEROKU_APP_NAME is None) or (HEROKU_API_KEY is None):
             return await eod(
                 var,
-                f"Go To @FirexSupport\n Type #reveal Then click on Img \n Then Check HEROKU_APP_NAME OR HEROKU_API_KEY Are Filled Correctly",
+                "Go To @FirexSupport\\n Type #reveal Then click on Img \\n Then Check HEROKU_APP_NAME OR HEROKU_API_KEY Are Filled Correctly",
                 link_preview=False,
             )
+
         await var.edit("`Getting information...`")
         await asyncio.sleep(1.5)
         try:
@@ -84,20 +85,21 @@ async def variable(var):
         if (HEROKU_APP_NAME is None) or (HEROKU_API_KEY is None):
             return await eod(
                 var,
-                f"Go To @FirexSupport\n Type #reveal Then click on Img \n Then Check HEROKU_APP_NAME OR HEROKU_API_KEY Are Filled Correctly.",
+                "Go To @FirexSupport\\n Type #reveal Then click on Img \\n Then Check HEROKU_APP_NAME OR HEROKU_API_KEY Are Filled Correctly.",
                 link_preview=False,
             )
+
         await var.edit("`Setting information...weit ser`")
         variable = var.pattern_match.group(2)
         if not variable:
-            return await var.edit(f"`.set var <VARS NAME> <value>`")
+            return await var.edit("`.set var <VARS NAME> <value>`")
         value = var.pattern_match.group(3)
         if not value:
             variable = variable.split()[0]
             try:
                 value = var.pattern_match.group(2).split()[1]
             except IndexError:
-                return await var.edit(f"`.set var <VARS NAME> <value>`")
+                return await var.edit("`.set var <VARS NAME> <value>`")
         await asyncio.sleep(1.5)
         if "eviral_STRING" in variable:
             await eor(var, "Successfully Changed To {value}")
@@ -115,20 +117,20 @@ async def variable(var):
         if (HEROKU_APP_NAME is None) or (HEROKU_API_KEY is None):
             return await eod(
                 var,
-                f"Go To @FirexSupport\n Type #reveal Then click on Img \n Then Check HEROKU_APP_NAME OR HEROKU_API_KEY Are Filled Correctly.",
+                "Go To @FirexSupport\\n Type #reveal Then click on Img \\n Then Check HEROKU_APP_NAME OR HEROKU_API_KEY Are Filled Correctly.",
                 link_preview=False,
             )
+
         await var.edit("`Getting information to deleting variable...`")
         try:
             variable = var.pattern_match.group(2).split()[0]
         except IndexError:
             return await var.edit("`Please specify ConfigVars you want to delete`")
         await asyncio.sleep(1.5)
-        if variable in heroku_var:
-            await var.edit(f"**{variable}**  `successfully deleted`")
-            del heroku_var[variable]
-        else:
+        if variable not in heroku_var:
             return await var.edit(f"**{variable}**  `is not exists`")
+        await var.edit(f"**{variable}**  `successfully deleted`")
+        del heroku_var[variable]
 
 
 @bot.on(admin_cmd(pattern="var(?: |$)", outgoing=True))
@@ -161,7 +163,7 @@ async def dyno_usage(dyno):
         "Authorization": f"Bearer {Var.HEROKU_API_KEY}",
         "Accept": "application/vnd.heroku+json; version=3.account-quotas",
     }
-    path = "/accounts/" + user_id + "/actions/get-quota"
+    path = f"/accounts/{user_id}/actions/get-quota"
     r = requests.get(heroku_api + path, headers=headers)
     if r.status_code != 200:
         return await dyno.edit(
@@ -212,17 +214,19 @@ async def _(event):
     if (HEROKU_APP_NAME is None) or (HEROKU_API_KEY is None):
         return await eod(
             dyno,
-            f"Go To @FirexSupport\n Type #reveal Then click on Img \n Then Check HEROKU_APP_NAME OR HEROKU_API_KEY Are Filled Correctly",
+            "Go To @FirexSupport\\n Type #reveal Then click on Img \\n Then Check HEROKU_APP_NAME OR HEROKU_API_KEY Are Filled Correctly",
             link_preview=False,
         )
+
     try:
         Heroku = heroku3.from_key(HEROKU_API_KEY)
         app = Heroku.app(HEROKU_APP_NAME)
     except BaseException:
         return await event.reply(
-            f"Go To @FirexSupport\n Type #reveal Then click on Img \n Then Check HEROKU_APP_NAME OR HEROKU_API_KEY Are Filled Correctly.",
+            "Go To @FirexSupport\\n Type #reveal Then click on Img \\n Then Check HEROKU_APP_NAME OR HEROKU_API_KEY Are Filled Correctly.",
             link_preview=False,
         )
+
     # event = await eor(dyno, "Downloading Logs...")
     eviral_data = app.get_log()
     await eor(event, eviral_data)

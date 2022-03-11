@@ -7,7 +7,7 @@ async def test(event):
         return
     uwu = event.pattern_match.group(1)
     await event.edit("Added note to Evernote".format(uwu))
-    await bot.send_message("@ifttt", "#note {}".format(uwu))
+    await bot.send_message("@ifttt", f"#note {uwu}")
 
 
 from userbot.cmdhelp import CmdHelp

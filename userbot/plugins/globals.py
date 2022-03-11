@@ -23,7 +23,7 @@ gbpic = Config.ALIVE_PIC or eviral_logo3
 async def get_full_user(event):
     args = event.pattern_match.group(1).split(":", 1)
     extra = None
-    if event.reply_to_msg_id and not len(args) == 2:
+    if event.reply_to_msg_id and len(args) != 2:
         previous_message = await event.get_reply_message()
         user_obj = await event.client.get_entity(previous_message.sender_id)
         extra = event.pattern_match.group(1)
@@ -67,7 +67,7 @@ async def _(eviralevent):
     await eviralevent.get_sender()
     me = await eviralevent.client.get_me()
     eviral = await eor(eviralevent, "`Promoting globally...`")
-    my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
+    my_mention = f"[{me.first_name}](tg://user?id={me.id})"
     f"@{me.username}" if me.username else my_mention
     await eviralevent.get_chat()
     if eviralevent.is_private:
@@ -109,7 +109,7 @@ async def _(eviralevent):
             except:
                 pass
     else:
-        await eviral.edit(f"**Reply to a user !!**")
+        await eviral.edit("**Reply to a user !!**")
     await eviral.edit(
         f"[{user.first_name}](tg://user?id={user.id}) **Was Promoted Globally In** `{i}` **Chats !!**"
     )
@@ -126,7 +126,7 @@ async def _(eviralevent):
     await eviralevent.get_sender()
     me = await eviralevent.client.get_me()
     eviral = await eor(eviralevent, "`Demoting Globally...`")
-    my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
+    my_mention = f"[{me.first_name}](tg://user?id={me.id})"
     f"@{me.username}" if me.username else my_mention
     await eviralevent.get_chat()
     if eviralevent.is_private:
@@ -168,7 +168,7 @@ async def _(eviralevent):
             except:
                 pass
     else:
-        await eviral.edit(f"**Reply to a user !!**")
+        await eviral.edit("**Reply to a user !!**")
     await eviral.edit(
         f"[{user.first_name}](tg://user?id={user.id}) **Was Demoted Globally In** `{i}` **Chats !!**"
     )
@@ -233,8 +233,7 @@ async def _(event):
     if a is not None:
         b = a.split(" ")
         c = [eviral_logo2]
-        for d in b:
-            c.append(d)
+        c.extend(iter(b))
         gbpic = random.choice(c)
     else:
         gbpic = eviral_logo2
@@ -308,24 +307,22 @@ async def already(event):
 
 @bot.on(events.ChatAction)
 async def _(event):
-    if event.user_joined or event.added_by:
-        user = await event.get_user()
-        chat = await event.get_chat()
-        if is_gbanned(str(user.id)):
-            if chat.admin_rights:
-                try:
-                    await event.client.edit_permissions(
-                        chat.id,
-                        user.id,
-                        view_messages=False,
-                    )
-                    gban_watcher = f"⚠️⚠️**Warning**⚠️⚠️\n\n`Gbanned User Joined the chat!!`\n**⚜️ Victim Id :**  [{user.first_name}](tg://user?id={user.id})\n"
-                    gban_watcher += (
-                        f"**🔥 Action 🔥**  \n`Banned this piece of shit....` **AGAIN!**"
-                    )
-                    await event.reply(gban_watcher)
-                except BaseException:
-                    pass
+    if not event.user_joined and not event.added_by:
+        return
+    user = await event.get_user()
+    chat = await event.get_chat()
+    if is_gbanned(str(user.id)) and chat.admin_rights:
+        try:
+            await event.client.edit_permissions(
+                chat.id,
+                user.id,
+                view_messages=False,
+            )
+            gban_watcher = f"⚠️⚠️**Warning**⚠️⚠️\n\n`Gbanned User Joined the chat!!`\n**⚜️ Victim Id :**  [{user.first_name}](tg://user?id={user.id})\n"
+            gban_watcher += "**🔥 Action 🔥**  \\n`Banned this piece of shit....` **AGAIN!**"
+            await event.reply(gban_watcher)
+        except BaseException:
+            pass
 
 
 @bot.on(admin_cmd(pattern=r"gkick ?(.*)"))
@@ -359,8 +356,7 @@ async def gkick(event):
     if a is not None:
         b = a.split(" ")
         c = [eviral_logo2]
-        for d in b:
-            c.append(d)
+        c.extend(iter(b))
         gbpic = random.choice(c)
     else:
         gbpic = eviral_logo2
@@ -387,7 +383,7 @@ async def gm(event):
         userid = event.pattern_match.group(1)
     elif reply is not None:
         userid = reply.sender_id
-    elif private is True:
+    elif private:
         userid = event.chat_id
     else:
         return await eod(
@@ -436,7 +432,7 @@ async def endgmute(event):
         userid = event.pattern_match.group(1)
     elif reply is not None:
         userid = reply.sender_id
-    elif private is True:
+    elif private:
         userid = event.chat_id
     else:
         return await eod(

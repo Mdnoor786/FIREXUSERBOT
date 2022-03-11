@@ -28,13 +28,9 @@ async def media_to_pic(event, reply, noedits=False):  # sourcery no-metrics
         "Document",
     ]:
         return event, None
-    if not noedits:
-        catevent = await edit_or_reply(
+    catevent = event if noedits else await edit_or_reply(
             event, "`Transfiguration Time! Converting to ....`"
         )
-
-    else:
-        catevent = event
     catmedia = None
     catfile = os.path.join("./temp/", "meme.png")
     if os.path.exists(catfile):
@@ -208,7 +204,7 @@ async def edit_or_freply(
     if aslink or deflink:
         linktext = linktext or "Message was to big so pasted to bin"
         response = await paste_message(text, pastetype="s")
-        text = linktext + f" [here]({response})"
+        text = f"{linktext} [here]({response})"
         if event.sender_id in sudo_users:
             if reply_to:
                 return await reply_to.reply(text, link_preview=link_preview)

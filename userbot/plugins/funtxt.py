@@ -9,8 +9,7 @@ from userbot.cmdhelp import CmdHelp
 async def payf(event):
     if event.fwd_from:
         return
-    input_str = event.pattern_match.group(1)
-    if input_str:
+    if input_str := event.pattern_match.group(1):
         paytext = input_str
         pay = "{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}".format(
             paytext * 8,

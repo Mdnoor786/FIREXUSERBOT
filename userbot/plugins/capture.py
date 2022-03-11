@@ -41,9 +41,7 @@ async def _(event):
         im_png = driver.get_screenshot_as_png()
         driver.close()
         await event.edit("Stopping Google Chrome BIN")
-        message_id = event.message.id
-        if event.reply_to_msg_id:
-            message_id = event.reply_to_msg_id
+        message_id = event.reply_to_msg_id or event.message.id
         with io.BytesIO(im_png) as out_file:
             out_file.name = "FIREX.ScreenCapture.PNG"
             await bot.send_file(
@@ -67,7 +65,7 @@ CmdHelp("capture").add_command(
     "<link>",
     "Gives out the web screenshot of given link via Google Crome Bin in .png format",
     "screenshot https://github.com/Teameviral/FIREX",
-).add_command("webshot", "<link>", f"Same as screenshot.").add_info(
+).add_command("webshot", "<link>", "Same as screenshot.").add_info(
     "Website Screenshot Maker."
 ).add_warning(
     "✅ Harmless Module."

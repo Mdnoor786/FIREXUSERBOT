@@ -47,7 +47,7 @@ async def _(event):
 
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
 
-    required_file_name = Config.TMP_DOWNLOAD_DIRECTORY + "voice.ogg"
+    required_file_name = f'{Config.TMP_DOWNLOAD_DIRECTORY}voice.ogg'
 
     try:
 
@@ -67,8 +67,9 @@ async def _(event):
             "100k",
             "-vbr",
             "on",
-            required_file_name + ".opus",
+            f'{required_file_name}.opus',
         ]
+
 
         try:
 
@@ -86,7 +87,7 @@ async def _(event):
 
             os.remove(required_file_name)
 
-            required_file_name = required_file_name + ".opus"
+            required_file_name = f'{required_file_name}.opus'
 
         end = datetime.now()
 
@@ -103,7 +104,7 @@ async def _(event):
 
         os.remove(required_file_name)
 
-        await event.edit("Processed {} ({}) in {} seconds!".format(text[0:97], lan, ms))
+        await event.edit(f"Processed {text[:97]} ({lan}) in {ms} seconds!")
 
         await asyncio.sleep(0.2)
 

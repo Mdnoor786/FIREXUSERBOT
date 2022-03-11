@@ -29,11 +29,7 @@ VAR_PIC = Config.ALIVE_PIC
 PREV_REPLY_MESSAGE = {}
 mybot = Config.BOT_USERNAME
 COMMAND_HAND_LER = os.environ.get("COMMAND_HAND_LER", r".")
-if mybot.startswith("@"):
-    botname = mybot
-else:
-    botname = f"@{mybot}"
-
+botname = mybot if mybot.startswith("@") else f"@{mybot}"
 LOG_GP = Config.LOGGER_ID
 mssge = (
     str(cstm_pmp)
@@ -88,32 +84,32 @@ def button(page, modules):
         pairs.append([modules[-1]])
     max_pages = ceil(len(pairs) / Row)
     pairs = [pairs[i : i + Row] for i in range(0, len(pairs), Row)]
-    buttons = []
-    for pairs in pairs[page]:
-        buttons.append(
-            [
-                custom.Button.inline(
-                    f"{eviral_emoji1} " + pair + f" {eviral_emoji2}",
-                    data=f"Information[{page}]({pair})",
-                )
-                for pair in pairs
-            ]
-        )
+    buttons = [
+        [
+            custom.Button.inline(
+                f"{eviral_emoji1} {pair}" + f" {eviral_emoji2}",
+                data=f"Information[{page}]({pair})",
+            )
+            for pair in pairs
+        ]
+        for pairs in pairs[page]
+    ]
 
     buttons.append(
         [
             custom.Button.inline(
-                f"ẞαƈƙ", data=f"page({(max_pages - 1) if page == 0 else (page - 1)})"
+                "ẞαƈƙ",
+                data=f"page({(max_pages - 1) if page == 0 else (page - 1)})",
             ),
-            custom.Button.inline(f"🔥 ❌ 🔥", data="close"),
+            custom.Button.inline("🔥 ❌ 🔥", data="close"),
             custom.Button.inline(
-                f"ɳ̃êӿ†", data=f"page({0 if page == (max_pages - 1) else page + 1})"
+                "ɳ̃êӿ†",
+                data=f"page({0 if page == (max_pages - 1) else page + 1})",
             ),
         ]
     )
-    return [max_pages, buttons]
 
-    modules = CMD_HELP
+    return [max_pages, buttons]
 
 
 if Config.BOT_USERNAME is not None and firebot is not None:
@@ -128,8 +124,7 @@ if Config.BOT_USERNAME is not None and firebot is not None:
             veriler = button(0, sorted(CMD_HELP))
             apn = []
             for x in CMD_LIST.values():
-                for y in x:
-                    apn.append(y)
+                apn.extend(iter(x))
             help_msg = f"⚜『{eviral_mention}』⚜\n\n⭐ 𝚃𝚘𝚝𝚊𝚕 𝙼𝚘𝚍𝚞𝚕𝚎𝚜 𝙸𝚗𝚜𝚝𝚊𝚕𝚕𝚎𝚍⭆ `{len(CMD_HELP)}`\n🔥 𝚃𝚘𝚝𝚊𝚕 𝙲𝚘𝚖𝚖𝚊𝚗𝚍𝚜⭆ `{len(apn)}`\n📖 Pαցҽ⭆ 1/{veriler[0]}\n"
             if help_pic and help_pic.endswith((".jpg", ".png")):
                 result = builder.photo(
@@ -148,11 +143,12 @@ if Config.BOT_USERNAME is not None and firebot is not None:
                 )
             else:
                 result = builder.article(
-                    f"Hey! Only use .op please",
+                    "Hey! Only use .op please",
                     text=help_msg,
                     buttons=veriler[1],
                     link_preview=False,
                 )
+
         elif event.query.user_id == bot.uid and query == "alive":
             leg_end = alive_txt.format(
                 Config.ALIVE_MSG,
@@ -253,11 +249,14 @@ if Config.BOT_USERNAME is not None and firebot is not None:
                 Config.LOGGER_ID,
             )
             var_btn = [
-                [Button.url(f"{eviral_USER}", f"tg://openmessage?user_id={Eviral}")],
                 [
-                    Button.url("🔹️Command🔹️", f"http://telegra.ph/Astronomer-10-07"),
+                    Button.url(
+                        f"{eviral_USER}", f"tg://openmessage?user_id={Eviral}"
+                    )
                 ],
+                [Button.url("🔹️Command🔹️", "http://telegra.ph/Astronomer-10-07")],
             ]
+
             if VAR_PIC and VAR_PIC.endswith((".jpg", ".png")):
                 result = builder.photo(
                     VAR_PIC,
@@ -284,10 +283,14 @@ if Config.BOT_USERNAME is not None and firebot is not None:
         elif event.query.user_id == bot.uid and query == "repo":
             result = builder.article(
                 title="Repository",
-                text=f"**⚜  FIRE_X ⚜**",
+                text="**⚜  FIRE_X ⚜**",
                 buttons=[
                     [Button.url("♥️ Tutorial ♥", "https://youtu.be/9dQgdUJfk_k")],
-                    [Button.url("📍 𝚁𝚎𝚙𝚘 📍", "https://github.com/Teameviral/FIREX")],
+                    [
+                        Button.url(
+                            "📍 𝚁𝚎𝚙𝚘 📍", "https://github.com/Teameviral/FIREX"
+                        )
+                    ],
                     [
                         Button.url(
                             "💞 Deploy 💞",
@@ -296,6 +299,7 @@ if Config.BOT_USERNAME is not None and firebot is not None:
                     ],
                 ],
             )
+
 
         elif query.startswith("http"):
             part = query.split(" ")
@@ -359,7 +363,7 @@ if Config.BOT_USERNAME is not None and firebot is not None:
     @firebot.on(events.callbackquery.CallbackQuery(data=re.compile(b"tg_okay")))
     async def yeahbaba(eviral):
         if eviral.query.user_id == bot.uid:
-            fck_bit = f"Oh! C'mon Master.This Is for other users"
+            fck_bit = "Oh! C'mon Master.This Is for other users"
             await eviral.answer(fck_bit, cache_time=0, alert=True)
         else:
             await eviral.edit(
@@ -376,7 +380,7 @@ if Config.BOT_USERNAME is not None and firebot is not None:
     @firebot.on(events.callbackquery.CallbackQuery(data=re.compile(b"school")))
     async def yeahbaba(eviral):
         if eviral.query.user_id == bot.uid:
-            fck_bit = f"This Is For Other user"
+            fck_bit = "This Is For Other user"
             await eviral.answer(fck_bit, cache_time=0, alert=True)
         else:
             await eviral.edit(
@@ -434,7 +438,7 @@ if Config.BOT_USERNAME is not None and firebot is not None:
         await bot.send_message(
             LOG_GP,
             message=f"Hello, Master  [Nibba](tg://user?id={eviral_id}). Wants To Request Something.",
-            buttons=[Button.url("Contact Him", f"tg://user?id=eviral_id")],
+            buttons=[Button.url("Contact Him", "tg://user?id=eviral_id")],
         )
 
     @firebot.on(events.callbackquery.CallbackQuery(data=re.compile(b"hmm")))
@@ -460,20 +464,20 @@ if Config.BOT_USERNAME is not None and firebot is not None:
         await asyncio.sleep(2)
         eviral_id = eviral.query.user_id
         await eviral.edit("Get Lost Retard")
-        ban = f"Pahli Fursat Me Nikal\nU Are Blocked"
+        ban = "Pahli Fursat Me Nikal\\nU Are Blocked"
         await bot.send_message(eviral.query.user_id, ban)
         await bot(functions.contacts.BlockRequest(eviral.query.user_id))
         await bot.send_message(
             LOG_GP,
             message=f"Hello, Master  [Nibba](tg://user?id={eviral_id}). Has Been Blocked Due to Choose Spam",
-            buttons=[Button.url("Contact Him", f"tg://user?id=eviral_id")],
+            buttons=[Button.url("Contact Him", "tg://user?id=eviral_id")],
         )
 
     @firebot.on(callbackquery.CallbackQuery(data=compile(b"unmute")))
     async def on_pm_click(event):
         hunter = (event.data_match.group(2)).decode("UTF-8")
         eviral = hunter.split("+")
-        if not event.sender_id == int(eviral[0]):
+        if event.sender_id != int(eviral[0]):
             return await event.answer("This Ain't For You!!", alert=True)
         try:
             await bot(GetParticipantRequest(int(eviral[1]), int(eviral[0])))
@@ -492,8 +496,7 @@ if Config.BOT_USERNAME is not None and firebot is not None:
             button(0, sorted(CMD_HELP))
             apn = []
             for x in CMD_LIST.values():
-                for y in x:
-                    apn.append(y)
+                apn.extend(iter(x))
             await event.edit(
                 f"",
                 buttons=simp[1],
@@ -524,8 +527,7 @@ if Config.BOT_USERNAME is not None and firebot is not None:
         veriler = button(page, CMD_HELP)
         apn = []
         for x in CMD_LIST.values():
-            for y in x:
-                apn.append(y)
+            apn.extend(iter(x))
         if event.query.user_id == bot.uid or event.query.user_id in Config.SUDO_USERS:
             await event.edit(
                 f"⚜『{eviral_mention}』⚜\n\n⭐ 𝚃𝚘𝚝𝚊𝚕 𝙼𝚘𝚍𝚞𝚕𝚎𝚜 𝙸𝚗𝚜𝚝𝚊𝚕𝚕𝚎𝚍⭆ `{len(CMD_HELP)}`\n🔥 𝚃𝚘𝚝𝚊𝚕 𝙲𝚘𝚖𝚖𝚊𝚗𝚍𝚜⭆ `{len(apn)}`\n📖 Pαցҽ⭆ 1/{veriler[0]}\n",
@@ -548,11 +550,12 @@ if Config.BOT_USERNAME is not None and firebot is not None:
         try:
             buttons = [
                 custom.Button.inline(
-                    f"{alive_emoji} " + cmd[0] + f" {alive_emoji}",
+                    f"{alive_emoji} {cmd[0]}" + f" {alive_emoji}",
                     data=f"commands[{commands}[{page}]]({cmd[0]})",
                 )
                 for cmd in CMD_HELP_BOT[commands]["commands"].items()
             ]
+
         except KeyError:
             return await event.answer(
                 "No Description is written for this plugin", cache_time=0, alert=True
@@ -588,13 +591,13 @@ if Config.BOT_USERNAME is not None and firebot is not None:
         commands = event.data_match.group(3).decode("UTF-8")
         result = f"**📗 𝙵𝚒𝚕𝚎 :**  `{cmd}`\n"
         if CMD_HELP_BOT[cmd]["info"]["info"] == "":
-            if not CMD_HELP_BOT[cmd]["info"]["warning"] == "":
+            if CMD_HELP_BOT[cmd]["info"]["warning"] != "":
                 result += (
                     f"**⚠️ 𝚆𝚊𝚛𝚗𝚒𝚗𝚐 :**  {CMD_HELP_BOT[cmd]['info']['warning']}\n\n"
                 )
             result += f"**📍 Type :**  {CMD_HELP_BOT[cmd]['info']['type']}\n\n"
         else:
-            if not CMD_HELP_BOT[cmd]["info"]["warning"] == "":
+            if CMD_HELP_BOT[cmd]["info"]["warning"] != "":
                 result += f"**⚠️ 𝚆𝚊𝚛𝚗𝚒𝚗𝚐 :**  {CMD_HELP_BOT[cmd]['info']['warning']}\n"
             result += f"**📍 Type :**  {CMD_HELP_BOT[cmd]['info']['type']}\n"
             result += f"**ℹ️ 𝙸𝚗𝚏𝚘 :**  {CMD_HELP_BOT[cmd]['info']['info']}\n\n"
